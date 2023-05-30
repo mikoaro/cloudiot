@@ -3397,22 +3397,27 @@ func (c *ProjectsLocationsRegistriesDevicesCreateCall) doRequest(alt string) (*h
 	}
 	registry := matches["registry"]
 	location := matches["location"]
+	log.Println("In doRequest, c.s.ServiceAccountCredentials.Url - Line 3400")
+	log.Println(c.s.ServiceAccountCredentials.Url)
+	log.Println("In doRequest, c.s.ServiceAccountCredentials.SystemKey - Line 3402")
+	log.Println(c.s.ServiceAccountCredentials.SystemKey)
 	credentials, err := GetRegistryCredentials(registry, location, c.s)
+	// .ServiceAccountCredentials.Url, s.ServiceAccountCredentials.SystemKey)
 	if err != nil {
 		return nil, err
 	}
 	reqHeaders.Set("ClearBlade-UserToken", credentials.Token)
 
-	log.Println("In doRequest, credentials.Url - Line 3406")
+	log.Println("In doRequest, credentials.Url - Line 3411")
 	log.Println(credentials.Url)
-	log.Println("In doRequest, credentials.SystemKey - Line 3408")
+	log.Println("In doRequest, credentials.SystemKey - Line 3413")
 	log.Println(credentials.SystemKey)
 
 	urls := fmt.Sprintf("%s/api/v/4/webhook/execute/%s/cloudiot_devices", credentials.Url, credentials.SystemKey)
-	log.Println("In doRequest, urls - Line 3412")
+	log.Println("In doRequest, urls - Line 3417")
 	log.Println(urls)
 	urls += "?" + c.urlParams_.Encode()
-	log.Println("In doRequest, urls - Line 3415")
+	log.Println("In doRequest, urls - Line 3420")
 	log.Println(urls)
 	req, err := http.NewRequest("POST", urls, body)
 	if err != nil {
